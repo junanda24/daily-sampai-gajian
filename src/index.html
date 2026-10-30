@@ -1,0 +1,984 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Sampai Gajian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f2e8d5;
+        --bg-deep: #e9dcbf;
+        --surface: #fffdf4;
+        --surface-2: #faf3e0;
+        --paper: #fffaf0;
+        --ink: #17352a;
+        --ink-2: #2e4f3e;
+        --ink-soft: #55705f;
+        --line: #ddcda6;
+        --line-strong: #c8b586;
+        --amber: #d98a1f;
+        --amber-ink: #9a5d08;
+        --amber-soft: #fbeed3;
+        --green: #1e7a46;
+        --green-soft: #e2f0e2;
+        --red: #b3372a;
+        --red-soft: #f9e4de;
+        --orange: #c05e10;
+        --orange-soft: #faead6;
+        --shadow: 0 10px 30px rgba(64, 48, 16, 0.14);
+        --radius: 16px;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0e1712;
+          --bg-deep: #0a120d;
+          --surface: #18251d;
+          --surface-2: #1e2f24;
+          --paper: #1d2c21;
+          --ink: #f2ead2;
+          --ink-2: #d8e2cb;
+          --ink-soft: #a7bda0;
+          --line: #31473a;
+          --line-strong: #46624f;
+          --amber: #f0b04a;
+          --amber-ink: #f0b04a;
+          --amber-soft: #3a2f16;
+          --green: #5cc785;
+          --green-soft: #1e3a28;
+          --red: #f08a76;
+          --red-soft: #40231d;
+          --orange: #f2a65e;
+          --orange-soft: #3d2c17;
+          --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+        background:
+          radial-gradient(1200px 500px at 50% -120px, var(--bg-deep), transparent 70%),
+          var(--bg);
+        color: var(--ink);
+        line-height: 1.5;
+      }
+      .page {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 28px 16px 48px;
+      }
+      header { margin-bottom: 22px; }
+      h1 {
+        font-size: clamp(38px, 10vw, 52px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.02;
+        margin: 0 0 8px;
+      }
+      h1 .bang { color: var(--amber); }
+      .tagline {
+        margin: 0;
+        font-size: 17px;
+        color: var(--ink-2);
+        max-width: 42ch;
+      }
+      h2 {
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin: 0 0 4px;
+      }
+      .sub { margin: 0 0 14px; color: var(--ink-soft); font-size: 14.5px; }
+      .card {
+        background: var(--surface);
+        border: 1.5px solid var(--line);
+        border-radius: var(--radius);
+        padding: 20px 18px;
+        margin-bottom: 16px;
+        box-shadow: var(--shadow);
+      }
+      label.field-label {
+        display: block;
+        font-weight: 600;
+        font-size: 15px;
+        margin: 14px 0 6px;
+      }
+      label.field-label:first-of-type { margin-top: 8px; }
+      .rp-input {
+        display: flex;
+        align-items: center;
+        background: var(--surface-2);
+        border: 1.5px solid var(--line-strong);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .rp-input span {
+        padding: 0 4px 0 14px;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 600;
+        color: var(--ink-soft);
+      }
+      .rp-input input {
+        flex: 1;
+        min-width: 0;
+        border: 0;
+        background: transparent;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--ink);
+        padding: 13px 12px 13px 4px;
+        outline: none;
+      }
+      .rp-input:focus-within { border-color: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); }
+      .rp-input.small input { font-size: 16px; padding: 10px 10px 10px 4px; }
+      input[type="date"], input[type="text"].plain {
+        width: 100%;
+        background: var(--surface-2);
+        border: 1.5px solid var(--line-strong);
+        border-radius: 12px;
+        font-family: inherit;
+        font-size: 17px;
+        font-weight: 600;
+        color: var(--ink);
+        padding: 12px 14px;
+        outline: none;
+        min-height: 52px;
+      }
+      input[type="date"]:focus, input[type="text"].plain:focus { border-color: var(--amber); box-shadow: 0 0 0 3px var(--amber-soft); }
+      .hint { margin: 8px 0 0; font-size: 13.5px; color: var(--ink-soft); }
+      .field-err {
+        display: none;
+        margin: 8px 0 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--red);
+        background: var(--red-soft);
+        border-radius: 8px;
+        padding: 8px 10px;
+      }
+      .field-err.show { display: block; }
+      /* ---------- chips & buttons ---------- */
+      .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+      .chip {
+        appearance: none;
+        border: 1.5px solid var(--line-strong);
+        background: var(--surface-2);
+        color: var(--ink);
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 9px 13px;
+        border-radius: 999px;
+        cursor: pointer;
+        min-height: 40px;
+      }
+      .chip:active { background: var(--amber-soft); border-color: var(--amber); }
+      .btn {
+        appearance: none;
+        border: 0;
+        font-family: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 12px;
+        min-height: 52px;
+        font-size: 16px;
+      }
+      .btn.primary {
+        width: 100%;
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 18px;
+        letter-spacing: 0.01em;
+        box-shadow: var(--shadow);
+      }
+      @media (prefers-color-scheme: dark) {
+        .btn.primary { background: var(--amber); color: #221503; }
+      }
+      .btn.primary:active { transform: translateY(1px); }
+      .btn.secondary {
+        flex: 1;
+        background: var(--surface);
+        color: var(--ink);
+        border: 1.5px solid var(--line-strong);
+      }
+      .btn.ghost {
+        width: 100%;
+        background: transparent;
+        color: var(--amber-ink);
+        border: 1.5px dashed var(--line-strong);
+        min-height: 48px;
+      }
+      .actions { margin-bottom: 18px; }
+      .actions .row { display: flex; gap: 10px; margin-top: 10px; }
+      /* ---------- expense rows ---------- */
+      .exp-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-bottom: 12px; }
+      .exp-empty {
+        border: 1.5px dashed var(--line);
+        border-radius: 12px;
+        padding: 14px;
+        color: var(--ink-soft);
+        font-size: 14.5px;
+        text-align: center;
+      }
+      .exp-row {
+        border: 1.5px solid var(--line);
+        border-radius: 14px;
+        padding: 12px;
+        background: var(--surface-2);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+      }
+      .exp-row.ditunda { background: var(--amber-soft); border-color: var(--amber); }
+      .exp-top { display: flex; gap: 8px; min-width: 0; }
+      .exp-name {
+        flex: 1;
+        min-width: 0;
+        border: 1.5px solid var(--line-strong);
+        background: var(--surface);
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 15.5px;
+        font-weight: 600;
+        color: var(--ink);
+        padding: 10px 12px;
+        outline: none;
+        min-height: 48px;
+      }
+      .exp-amt-wrap { flex: 1.25; min-width: 0; background: var(--surface); border-radius: 10px; }
+      .exp-amt-wrap input { font-size: 15px; padding: 11px 8px 11px 2px; }
+      .exp-bottom { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+      .exp-del {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: var(--red);
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 8px 6px;
+        min-height: 40px;
+      }
+      .badge-tunda {
+        display: none;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--amber-ink);
+        border: 1.5px solid var(--amber);
+        border-radius: 999px;
+        padding: 2px 9px;
+      }
+      .exp-row.ditunda .badge-tunda { display: inline-block; }
+      /* ---------- switch ---------- */
+      .switch-wrap { display: inline-flex; align-items: center; gap: 9px; cursor: pointer; font-size: 14px; font-weight: 600; }
+      .switch { position: relative; display: inline-flex; flex: none; }
+      .switch input {
+        appearance: none; -webkit-appearance: none;
+        width: 48px; height: 28px; margin: 0; flex: none;
+        border-radius: 999px; background: var(--line-strong);
+        position: relative; cursor: pointer; outline: none;
+        transition: background 0.2s;
+      }
+      .switch input::after {
+        content: ""; position: absolute; width: 22px; height: 22px; border-radius: 50%;
+        background: #fffdf6; top: 3px; left: 3px; transition: transform 0.2s;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+      }
+      .switch input:checked { background: var(--green); }
+      .switch input:checked::after { transform: translateX(20px); }
+      .switch input:focus-visible { outline: 2.5px solid var(--amber); outline-offset: 2px; }
+      /* ---------- totals ---------- */
+      .totals { border-top: 2px dashed var(--line); padding-top: 12px; display: grid; gap: 6px; }
+      .totals .trow { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14.5px; }
+      .totals .trow strong { font-family: "IBM Plex Mono", monospace; font-size: 16px; white-space: nowrap; }
+      .totals .trow.tunda { color: var(--ink-soft); }
+      /* ---------- receipt ---------- */
+      .receipt-zone { margin: 26px 0 20px; }
+      .slot {
+        height: 16px;
+        border-radius: 8px 8px 0 0;
+        background: var(--ink);
+        position: relative;
+        margin: 0 10px;
+        z-index: 2;
+      }
+      .slot::after {
+        content: ""; position: absolute; left: 12px; right: 12px; top: 6px; height: 4px;
+        border-radius: 2px; background: rgba(0,0,0,0.55);
+      }
+      @media (prefers-color-scheme: dark) { .slot::after { background: rgba(0,0,0,0.8); } }
+      .receipt-clip { overflow: hidden; padding-bottom: 14px; }
+      .receipt {
+        background: var(--paper);
+        color: var(--ink);
+        margin: 0 4px;
+        padding: 24px 20px 20px;
+        border-radius: 0 0 6px 6px;
+        box-shadow: var(--shadow);
+        position: relative;
+        font-family: "IBM Plex Mono", monospace;
+      }
+      .receipt::after {
+        content: ""; position: absolute; left: 0; right: 0; bottom: -11px; height: 12px;
+        background-image: radial-gradient(circle at 7px -3px, transparent 7px, var(--paper) 7.5px);
+        background-size: 15px 12px;
+        background-repeat: repeat-x;
+      }
+      .receipt.printing { animation: printIn 1.05s cubic-bezier(0.25, 0.7, 0.3, 1) both; }
+      @keyframes printIn {
+        0% { transform: translateY(-104%); }
+        55% { transform: translateY(-38%); }
+        78% { transform: translateY(-14%); }
+        100% { transform: translateY(0); }
+      }
+      .r-head { text-align: center; font-weight: 700; letter-spacing: 0.22em; font-size: 15px; }
+      .r-sub { text-align: center; font-size: 12.5px; color: var(--ink-soft); margin-top: 3px; }
+      .r-dash { border-top: 2px dashed var(--line-strong); margin: 14px 0; }
+      .r-row { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; font-size: 14px; padding: 2.5px 0; }
+      .r-row .k { color: var(--ink-2); min-width: 0; overflow-wrap: anywhere; }
+      .r-row .v { font-weight: 600; text-align: right; white-space: nowrap; }
+      .r-row.total .k, .r-row.total .v { font-weight: 700; font-size: 15px; color: var(--ink); }
+      .r-group-label { font-size: 11.5px; letter-spacing: 0.16em; font-weight: 700; color: var(--ink-soft); margin: 8px 0 2px; }
+      .hero { text-align: center; padding: 6px 0 2px; }
+      .hero .hero-label { font-size: 12.5px; letter-spacing: 0.24em; font-weight: 700; color: var(--ink-soft); }
+      .hero .hero-num {
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 800;
+        font-size: clamp(40px, 12vw, 62px);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin: 2px 0 0;
+        white-space: nowrap;
+      }
+      .hero .hero-per {
+        font-size: 12.5px; letter-spacing: 0.24em; font-weight: 700;
+        color: var(--ink-soft); margin-top: 3px; text-transform: uppercase;
+      }
+      .hero .hero-num.neg { color: var(--red); }
+      .hero .hero-gajian { font-size: clamp(34px, 10vw, 46px); }
+      .status-pill {
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        font-family: "Bricolage Grotesque", sans-serif;
+        font-weight: 700; font-size: 16px;
+        border-radius: 999px; padding: 8px 14px; margin: 12px auto 0; width: fit-content;
+      }
+      .status-pill .dot { width: 11px; height: 11px; border-radius: 50%; background: currentColor; flex: none; }
+      .status-pill.st-defisit { background: var(--red-soft); color: var(--red); }
+      .status-pill.st-ketat { background: var(--orange-soft); color: var(--orange); }
+      .status-pill.st-pas { background: var(--amber-soft); color: var(--amber-ink); }
+      .status-pill.st-aman { background: var(--green-soft); color: var(--green); }
+      .r-sentence { text-align: center; font-family: "Bricolage Grotesque", sans-serif; font-size: 16.5px; color: var(--ink-2); margin: 12px 6px 0; }
+      .dots { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; padding: 4px 10px 0; }
+      .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--green); opacity: 0.75; display: block; }
+      .dots i.first { background: transparent; border: 2px solid var(--green); opacity: 1; }
+      .dots i.last { background: var(--amber); opacity: 1; width: 12px; height: 12px; margin-top: -1.5px; }
+      .dots-cap { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-soft); padding: 5px 12px 0; }
+      .r-note { font-size: 11.5px; color: var(--ink-soft); text-align: center; margin-top: 12px; line-height: 1.55; }
+      /* ---------- simulator & tricks ---------- */
+      .sim-out, .eff-note {
+        margin-top: 14px;
+        border-radius: 12px;
+        padding: 13px 14px;
+        font-size: 15px;
+        background: var(--surface-2);
+        border: 1.5px solid var(--line);
+        display: none;
+      }
+      .sim-out.show, .eff-note.show { display: block; }
+      .sim-out.ok { background: var(--green-soft); border-color: var(--green); }
+      .sim-out.warn { background: var(--orange-soft); border-color: var(--orange); }
+      .sim-out.bad { background: var(--red-soft); border-color: var(--red); }
+      .sim-out strong { font-family: "IBM Plex Mono", monospace; }
+      .trick {
+        display: grid; gap: 8px;
+        border: 1.5px solid var(--line);
+        border-radius: 14px;
+        padding: 13px 13px;
+        margin-bottom: 10px;
+        background: var(--surface-2);
+      }
+      .trick.on { border-color: var(--green); background: var(--green-soft); }
+      .trick-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+      .trick-name { font-weight: 700; font-size: 16px; }
+      .trick-desc { font-size: 13.5px; color: var(--ink-soft); margin-top: 1px; }
+      .trick-amt { display: flex; align-items: center; gap: 10px; min-width: 0; }
+      .trick-amt label { font-size: 13.5px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+      .trick-amt .rp-input { flex: 1; min-width: 0; background: var(--surface); }
+      .trick-amt .rp-input input { font-size: 15px; }
+      .eff {
+        display: flex; align-items: stretch; gap: 10px; margin-top: 16px;
+      }
+      .eff .box {
+        flex: 1; border: 1.5px solid var(--line); border-radius: 14px; padding: 12px 13px;
+        background: var(--surface-2); text-align: center;
+      }
+      .eff .box.new { border-color: var(--green); background: var(--green-soft); }
+      .eff .box span { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+      .eff .box strong { display: block; font-family: "IBM Plex Mono", monospace; font-size: clamp(17px, 5.4vw, 22px); margin-top: 3px; }
+      .eff .box small { display: block; font-size: 12px; color: var(--ink-soft); }
+      .eff .arrow { align-self: center; font-size: 20px; color: var(--ink-soft); font-weight: 700; }
+      footer {
+        margin-top: 26px;
+        border-top: 2px dashed var(--line-strong);
+        padding-top: 16px;
+        font-size: 13.5px;
+        color: var(--ink-soft);
+        display: grid; gap: 8px;
+      }
+      footer strong { color: var(--ink-2); }
+      @media (prefers-reduced-motion: reduce) {
+        .receipt.printing { animation: none; }
+        * { transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>Sampai Gajian<span class="bang">!</span></h1>
+        <p class="tagline">Dari sisa uang yang kamu pegang sekarang sampai gajian berikutnya — berapa jatah amanmu per hari? Hitung di sini, biar uangnya awet sampai akhir.</p>
+      </header>
+
+      <section class="card" aria-labelledby="judul-dasar">
+        <h2 id="judul-dasar">Uang dan tanggal gajian</h2>
+        <p class="sub">Dua angka ini yang jadi patokan semua hitungan di bawah.</p>
+        <label class="field-label" for="sisa">Sisa uang sekarang</label>
+        <div class="rp-input">
+          <span>Rp</span>
+          <input id="sisa" class="uang" type="text" inputmode="numeric" autocomplete="off" placeholder="0" aria-describedby="err-sisa" />
+        </div>
+        <p class="field-err" id="err-sisa" role="alert"></p>
+        <label class="field-label" for="gajian">Tanggal gajian berikutnya</label>
+        <input type="date" id="gajian" aria-describedby="err-gajian hint-today" />
+        <p class="field-err" id="err-gajian" role="alert"></p>
+        <p class="hint" id="hint-today"></p>
+      </section>
+
+      <section class="card" aria-labelledby="judul-wajib">
+        <h2 id="judul-wajib">Pengeluaran wajib sebelum gajian</h2>
+        <p class="sub">Yang pasti harus dibayar sebelum gajian tiba. Yang masih bisa digeser, nyalakan tombol "bisa ditunda" — pengeluaran itu tidak akan mengurangi jatah harianmu.</p>
+        <div class="chips" id="chips" aria-label="Tambah cepat pengeluaran">
+          <button type="button" class="chip" data-name="Kos/Kontrakan">+ Kos/Kontrakan</button>
+          <button type="button" class="chip" data-name="Listrik">+ Listrik</button>
+          <button type="button" class="chip" data-name="Air">+ Air</button>
+          <button type="button" class="chip" data-name="Internet/HP">+ Internet/HP</button>
+          <button type="button" class="chip" data-name="Cicilan">+ Cicilan</button>
+          <button type="button" class="chip" data-name="Transport">+ Transport</button>
+        </div>
+        <div class="exp-list" id="exp-list"></div>
+        <button type="button" class="btn ghost" id="add-exp">+ Tambah pengeluaran lain</button>
+        <div class="totals">
+          <div class="trow"><span>Total wajib sebelum gajian</span><strong id="tot-wajib">Rp 0</strong></div>
+          <div class="trow tunda"><span>Ditunda dulu (tidak mengurangi jatah)</span><strong id="tot-tunda">Rp 0</strong></div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button type="button" class="btn primary" id="btn-hitung">Hitung jatah harianku</button>
+        <div class="row">
+          <button type="button" class="btn secondary" id="btn-contoh">Coba contoh</button>
+          <button type="button" class="btn secondary" id="btn-reset">Reset</button>
+        </div>
+      </div>
+
+      <section class="receipt-zone" id="receipt-zone" hidden aria-live="polite">
+        <div class="slot" aria-hidden="true"></div>
+        <div class="receipt-clip">
+          <article class="receipt" id="receipt"></article>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="judul-sim">
+        <h2 id="judul-sim">Simulasi jajan</h2>
+        <p class="sub">Punya rencana jajan harian? Cek di sini apakah uangmu tetap awet sampai gajian, atau justru habis di tengah jalan.</p>
+        <label class="field-label" for="jajan">Rencana jajan per hari</label>
+        <div class="rp-input">
+          <span>Rp</span>
+          <input id="jajan" class="uang" type="text" inputmode="numeric" autocomplete="off" placeholder="0" />
+        </div>
+        <div class="sim-out" id="sim-out"></div>
+      </section>
+
+      <section class="card" aria-labelledby="judul-jurus">
+        <h2 id="judul-jurus">Jurus hemat</h2>
+        <p class="sub">Nyalakan jurus yang sanggup kamu jalani. Angka hematnya perkiraan awal dari kami — silakan ubah sesuai kebiasaanmu, kamu yang paling tahu.</p>
+        <div id="trick-list"></div>
+        <div class="eff">
+          <div class="box">
+            <span>Jatah awal</span>
+            <strong id="eff-base">—</strong>
+            <small>per hari</small>
+          </div>
+          <div class="arrow" aria-hidden="true">&rarr;</div>
+          <div class="box new">
+            <span>Setelah jurus hemat</span>
+            <strong id="eff-new">—</strong>
+            <small>per hari</small>
+          </div>
+        </div>
+        <div class="eff-note" id="eff-note"></div>
+      </section>
+
+      <footer>
+        <p><strong>Privasi:</strong> semua hitungan berjalan di perambanmu. Tidak ada data yang dikirim ke mana pun atau disimpan secara permanen — tutup halaman ini, semua isianmu hilang.</p>
+        <p><strong>Catatan:</strong> ini panduan kasar untuk membantu merencanakan pengeluaran, bukan nasihat keuangan. Patokan status di struk (Ketat, Pas-pasan, Aman) adalah panduan sederhana buatan aplikasi ini, bukan standar resmi.</p>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        "use strict";
+        var sisaEl = document.getElementById("sisa");
+        var dateEl = document.getElementById("gajian");
+        var jajanEl = document.getElementById("jajan");
+        var errSisa = document.getElementById("err-sisa");
+        var errGajian = document.getElementById("err-gajian");
+        var expList = document.getElementById("exp-list");
+        var totWajibEl = document.getElementById("tot-wajib");
+        var totTundaEl = document.getElementById("tot-tunda");
+        var zoneEl = document.getElementById("receipt-zone");
+        var receiptEl = document.getElementById("receipt");
+        var simOut = document.getElementById("sim-out");
+        var effBase = document.getElementById("eff-base");
+        var effNew = document.getElementById("eff-new");
+        var effNote = document.getElementById("eff-note");
+        var trickList = document.getElementById("trick-list");
+
+        var nf = new Intl.NumberFormat("id-ID");
+        function fmt(n) { return "Rp " + nf.format(n); }
+        function fmtSigned(n) { return (n < 0 ? "−" : "") + fmt(Math.abs(n)); }
+        function parseMoney(str) {
+          var d = (str || "").replace(/[^\d]/g, "");
+          return d === "" ? null : parseInt(d, 10);
+        }
+        function formatUangInput(el) {
+          var v = parseMoney(el.value);
+          el.value = v === null ? "" : nf.format(v);
+        }
+        function todayStart() { var d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+        function parseDateVal(v) {
+          if (!v) return null;
+          var p = v.split("-");
+          if (p.length !== 3) return null;
+          return new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+        }
+        function dayDiff(a, b) { return Math.round((b - a) / 86400000); }
+        function addDays(d, n) { var x = new Date(d); x.setDate(x.getDate() + n); return x; }
+        function fmtDateLong(d) {
+          return new Intl.DateTimeFormat("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(d);
+        }
+        function fmtDateShort(d) {
+          return new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric" }).format(d);
+        }
+        function toVal(d) {
+          function p(n) { return String(n).padStart(2, "0"); }
+          return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+        }
+        function esc(s) {
+          return String(s).replace(/[&<>"']/g, function (c) {
+            return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+          });
+        }
+
+        document.getElementById("hint-today").textContent = "Hari ini: " + fmtDateLong(todayStart()) + ".";
+
+        /* ---------------- expenses ---------------- */
+        var expSeq = 0;
+        function addExpense(name, amount, postponed) {
+          expSeq += 1;
+          var row = document.createElement("div");
+          row.className = "exp-row" + (postponed ? " ditunda" : "");
+          row.innerHTML =
+            '<div class="exp-top">' +
+              '<input type="text" class="exp-name" placeholder="Nama pengeluaran" value="' + esc(name || "") + '" aria-label="Nama pengeluaran" />' +
+              '<div class="rp-input small exp-amt-wrap"><span>Rp</span>' +
+                '<input type="text" class="uang exp-amt" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Nominal pengeluaran" value="' + (amount ? nf.format(amount) : "") + '" />' +
+              "</div>" +
+            "</div>" +
+            '<div class="exp-bottom">' +
+              '<label class="switch-wrap"><span class="switch"><input type="checkbox" class="exp-postpone"' + (postponed ? " checked" : "") + ' /></span> Bisa ditunda <span class="badge-tunda">Ditunda</span></label>' +
+              '<button type="button" class="exp-del">Hapus</button>' +
+            "</div>";
+          expList.appendChild(row);
+          row.querySelector(".exp-del").addEventListener("click", function () {
+            row.remove();
+            refresh(false);
+          });
+          row.querySelector(".exp-postpone").addEventListener("change", function (e) {
+            row.classList.toggle("ditunda", e.target.checked);
+            refresh(false);
+          });
+          return row;
+        }
+        function renderExpEmpty() {
+          var empty = expList.querySelector(".exp-empty");
+          var has = expList.querySelectorAll(".exp-row").length > 0;
+          if (!has && !empty) {
+            var d = document.createElement("div");
+            d.className = "exp-empty";
+            d.textContent = "Belum ada pengeluaran wajib. Tambah lewat tombol cepat di atas, atau tombol Tambah pengeluaran lain.";
+            expList.appendChild(d);
+          } else if (has && empty) {
+            empty.remove();
+          }
+        }
+        function readExpenses() {
+          var wajib = 0, tunda = 0, items = [];
+          var rows = expList.querySelectorAll(".exp-row");
+          for (var i = 0; i < rows.length; i++) {
+            var name = rows[i].querySelector(".exp-name").value.trim() || "Pengeluaran";
+            var amt = parseMoney(rows[i].querySelector(".exp-amt").value) || 0;
+            var post = rows[i].querySelector(".exp-postpone").checked;
+            items.push({ name: name, amt: amt, post: post });
+            if (post) tunda += amt; else wajib += amt;
+          }
+          return { wajib: wajib, tunda: tunda, items: items };
+        }
+        document.getElementById("add-exp").addEventListener("click", function () {
+          var row = addExpense("", null, false);
+          refresh(false);
+          row.querySelector(".exp-name").focus();
+        });
+        document.getElementById("chips").addEventListener("click", function (e) {
+          var btn = e.target.closest(".chip");
+          if (!btn) return;
+          var row = addExpense(btn.getAttribute("data-name"), null, false);
+          refresh(false);
+          row.querySelector(".exp-amt").focus();
+        });
+
+        /* ---------------- tricks ---------------- */
+        var TRICKS = [
+          { name: "Bawa bekal dari rumah", desc: "Ganti satu kali makan beli dengan bekal masakan sendiri.", def: 15000 },
+          { name: "Bikin kopi sendiri", desc: "Satu gelas kopi kekinian diganti kopi rumahan yang jauh lebih murah.", def: 12000 },
+          { name: "Kurangi ojek online", desc: "Jarak dekat jalan kaki atau naik angkutan umum saja.", def: 8000 },
+          { name: "Masak makan malam sendiri", desc: "Tidak harus tiap hari — dua-tiga kali seminggu saja sudah terasa bedanya.", def: 10000 }
+        ];
+        TRICKS.forEach(function (t, idx) {
+          var div = document.createElement("div");
+          div.className = "trick";
+          div.innerHTML =
+            '<div class="trick-top">' +
+              '<div><div class="trick-name">' + esc(t.name) + '</div><div class="trick-desc">' + esc(t.desc) + "</div></div>" +
+              '<label class="switch-wrap"><span class="switch"><input type="checkbox" class="trick-on" id="trick-on-' + idx + '" /></span></label>' +
+            "</div>" +
+            '<div class="trick-amt"><label for="trick-amt-' + idx + '">Hemat sekitar per hari</label>' +
+              '<div class="rp-input small"><span>Rp</span><input type="text" class="uang trick-amt-in" id="trick-amt-' + idx + '" inputmode="numeric" autocomplete="off" value="' + nf.format(t.def) + '" /></div></div>';
+          trickList.appendChild(div);
+          div.querySelector(".trick-on").addEventListener("change", function (e) {
+            div.classList.toggle("on", e.target.checked);
+            refresh(false);
+          });
+        });
+        function activeSavings() {
+          var total = 0, count = 0;
+          var boxes = trickList.querySelectorAll(".trick");
+          boxes.forEach(function (b) {
+            if (b.querySelector(".trick-on").checked) {
+              total += parseMoney(b.querySelector(".trick-amt-in").value) || 0;
+              count += 1;
+            }
+          });
+          return { total: total, count: count };
+        }
+
+        /* ---------------- compute ---------------- */
+        var attempted = false;
+        var lastC = null;
+
+        function compute() {
+          var sisa = parseMoney(sisaEl.value);
+          var pay = parseDateVal(dateEl.value);
+          var errors = {};
+          if (sisa === null) errors.sisa = "Isi dulu sisa uangmu saat ini, ya.";
+          if (!pay) {
+            errors.gajian = "Pilih dulu tanggal gajian berikutnya.";
+          }
+          var days = null;
+          if (pay) {
+            days = dayDiff(todayStart(), pay);
+            if (days < 0) errors.gajian = "Tanggal sudah lewat — pilih tanggal gajian berikutnya.";
+          }
+          if (Object.keys(errors).length) return { ok: false, errors: errors };
+          var ex = readExpenses();
+          var free = sisa - ex.wajib;
+          var c = {
+            ok: true, sisa: sisa, pay: pay, days: days,
+            wajib: ex.wajib, tunda: ex.tunda, items: ex.items,
+            free: free, today: todayStart(), allowance: null, status: null
+          };
+          if (days > 0) {
+            c.allowance = Math.floor(free / days);
+            c.status = free < 0 ? "defisit" : c.allowance < 25000 ? "ketat" : c.allowance < 50000 ? "pas" : "aman";
+          }
+          return c;
+        }
+
+        var STATUS = {
+          defisit: { label: "Defisit", cls: "st-defisit", sentence: "Lagi seret itu bukan salahmu. Lihat lagi daftar wajibnya — mungkin ada yang bisa digeser atau ditunda dulu." },
+          ketat: { label: "Ketat", cls: "st-ketat", sentence: "Memang mepet, tapi kamu sudah punya angka pegangan. Pelan-pelan saja, hari demi hari." },
+          pas: { label: "Pas-pasan", cls: "st-pas", sentence: "Cukup kalau kamu disiplin sama angka ini. Kamu sudah tahu batasnya — itu separuh perjuangan." },
+          aman: { label: "Aman", cls: "st-aman", sentence: "Napasmu lega. Jatah segini memberi ruang bernapas sampai gajian tiba." }
+        };
+
+        function showErrors(errors) {
+          errSisa.textContent = errors.sisa || "";
+          errSisa.classList.toggle("show", !!errors.sisa);
+          errGajian.textContent = errors.gajian || "";
+          errGajian.classList.toggle("show", !!errors.gajian);
+        }
+        function hideErrors() {
+          errSisa.classList.remove("show");
+          errGajian.classList.remove("show");
+        }
+
+        function dotsHTML(days) {
+          var cap = Math.min(days, 90);
+          var s = '<div class="dots" aria-hidden="true">';
+          for (var i = 0; i < cap; i++) {
+            var cls = "";
+            if (days > 1 && i === cap - 1) cls = "last";
+            else if (i === 0) cls = "first";
+            s += '<i class="' + cls + '"></i>';
+          }
+          s += "</div>";
+          s += '<div class="dots-cap"><span>Hari ini</span><span>' + days + " hari menuju gajian" + (days > 90 ? " (titik ditampilkan 90)" : "") + '</span><span>Gajian</span></div>';
+          return s;
+        }
+
+        function expenseLines(c) {
+          var s = "";
+          var wajibItems = c.items.filter(function (i) { return !i.post; });
+          var postItems = c.items.filter(function (i) { return i.post; });
+          if (wajibItems.length) {
+            s += '<div class="r-group-label">PENGELUARAN WAJIB</div>';
+            wajibItems.forEach(function (i) {
+              s += '<div class="r-row"><span class="k">' + esc(i.name) + '</span><span class="v">' + fmt(i.amt) + "</span></div>";
+            });
+            s += '<div class="r-row total"><span class="k">Total wajib</span><span class="v">−' + fmt(c.wajib) + "</span></div>";
+          } else {
+            s += '<div class="r-row"><span class="k">Pengeluaran wajib</span><span class="v">tidak ada</span></div>';
+          }
+          if (postItems.length) {
+            s += '<div class="r-group-label">DITUNDA DULU (TIDAK MENGURANGI JATAH)</div>';
+            postItems.forEach(function (i) {
+              s += '<div class="r-row"><span class="k">' + esc(i.name) + '</span><span class="v">' + fmt(i.amt) + "</span></div>";
+            });
+            s += '<div class="r-row"><span class="k">Total ditunda</span><span class="v">' + fmt(c.tunda) + "</span></div>";
+          }
+          return s;
+        }
+
+        function countUp(el, target) {
+          var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (reduce || target <= 0) { el.firstChild.nodeValue = fmt(target); return; }
+          var start = null, dur = 650;
+          function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min(1, (ts - start) / dur);
+            var eased = 1 - Math.pow(1 - p, 3);
+            el.firstChild.nodeValue = fmt(Math.round(target * eased));
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+
+        function renderResult(c, animate) {
+          if (!c.ok) {
+            if (attempted) showErrors(c.errors);
+            zoneEl.hidden = true;
+            return;
+          }
+          hideErrors();
+          var html = "";
+          html += '<div class="r-head">STRUK SAMPAI GAJIAN</div>';
+          html += '<div class="r-sub">' + esc(fmtDateLong(c.today)) + "</div>";
+          html += '<div class="r-dash"></div>';
+          html += '<div class="r-row"><span class="k">Sisa uang sekarang</span><span class="v">' + fmt(c.sisa) + "</span></div>";
+          html += '<div class="r-row"><span class="k">Gajian berikutnya</span><span class="v">' + esc(fmtDateShort(c.pay)) + "</span></div>";
+          if (c.days > 0) {
+            html += '<div class="r-row"><span class="k">Sisa hari</span><span class="v">' + c.days + " hari</span></div>";
+          }
+          html += '<div class="r-dash"></div>';
+          html += expenseLines(c);
+          html += '<div class="r-dash"></div>';
+          html += '<div class="r-row total"><span class="k">Uang bebas</span><span class="v">' + fmtSigned(c.free) + "</span></div>";
+
+          if (c.days === 0) {
+            html += '<div class="r-dash"></div>';
+            html += '<div class="hero"><div class="hero-label">HARI INI</div><div class="hero-num hero-gajian">Gajian!</div></div>';
+            html += '<p class="r-sentence">Hari yang ditunggu-tunggu datang juga. Uang bebasmu ' + fmt(Math.max(c.free, 0)) + ' siap menyambut awal bulan — selamat gajian, kamu berhasil sampai sini.</p>';
+          } else {
+            html += dotsHTML(c.days);
+            html += '<div class="r-dash"></div>';
+            var st = STATUS[c.status];
+            if (c.status === "defisit") {
+              html += '<div class="hero"><div class="hero-label">UANG BEBASMU MINUS</div><div class="hero-num neg" id="hero-num">' + fmtSigned(c.free) + "</div></div>";
+              html += '<p class="r-sentence">Pengeluaran wajibmu melebihi sisa uang sebesar ' + fmt(Math.abs(c.free)) + ". Jatah per hari belum bisa dihitung — coba tunda sebagian pengeluaran wajib, atau kurangi nominalnya dulu.</p>";
+            } else {
+              html += '<div class="hero"><div class="hero-label">JATAH PER HARI</div><div class="hero-num"><span id="hero-num">' + fmt(c.allowance) + '</span></div><div class="hero-per">per hari</div></div>';
+            }
+            html += '<div class="status-pill ' + st.cls + '"><span class="dot"></span>Status: ' + st.label + "</div>";
+            if (c.status !== "defisit") {
+              html += '<p class="r-sentence">' + st.sentence + "</p>";
+            }
+          }
+          html += '<p class="r-note">Patokan status: Defisit bila uang bebas minus; Ketat di bawah Rp 25.000/hari; Pas-pasan Rp 25.000–49.999/hari; Aman Rp 50.000/hari ke atas. Ini panduan sederhana, bukan standar resmi.</p>';
+          receiptEl.innerHTML = html;
+          zoneEl.hidden = false;
+          if (animate) {
+            receiptEl.classList.remove("printing");
+            void receiptEl.offsetWidth;
+            receiptEl.classList.add("printing");
+            var heroNum = document.getElementById("hero-num");
+            if (heroNum && c.days > 0 && c.status !== "defisit") {
+              var wrap = document.createElement("span");
+              wrap.textContent = fmt(0);
+              heroNum.replaceWith(wrap);
+              countUp(wrap, c.allowance);
+            }
+          }
+        }
+
+        /* ---------------- simulator ---------------- */
+        function updateSim() {
+          var c = lastC;
+          var planned = parseMoney(jajanEl.value);
+          if (!c || !c.ok) {
+            simOut.className = "sim-out";
+            simOut.innerHTML = "";
+            return;
+          }
+          if (c.days === 0) {
+            simOut.className = "sim-out show ok";
+            simOut.innerHTML = "Gajianmu <strong>hari ini</strong> — uang sudah terisi lagi, jadi simulasi jajan ini tidak perlu dipakai. Nikmati dulu hari ini.";
+            return;
+          }
+          if (c.free <= 0) {
+            simOut.className = "sim-out show bad";
+            simOut.innerHTML = "Uang bebasmu sedang minus <strong>" + fmt(Math.abs(c.free)) + "</strong>, jadi belum ada jatah jajan yang aman untuk disimulasikan. Tunda sebagian pengeluaran wajib atau kurangi nominalnya, lalu hitung lagi.";
+            return;
+          }
+          if (planned === null) {
+            simOut.className = "sim-out show";
+            simOut.innerHTML = "Isi rencana jajan harianmu di atas, nanti proyeksinya muncul di sini.";
+            return;
+          }
+          if (planned <= c.allowance) {
+            var left = c.free - planned * c.days;
+            simOut.className = "sim-out show ok";
+            simOut.innerHTML = "Aman. Dengan jajan <strong>" + fmt(planned) + "</strong> per hari, pas gajian nanti kamu masih menyisakan sekitar <strong>" + fmt(left) + "</strong>. Tetap santai, tetap terkendali.";
+          } else {
+            var runDays = Math.floor(c.free / planned);
+            var runDate = addDays(c.today, runDays);
+            var when = runDays === 0 ? "hari ini juga" : "sekitar <strong>" + esc(fmtDateShort(runDate)) + "</strong>";
+            simOut.className = "sim-out show warn";
+            simOut.innerHTML = "Jajan <strong>" + fmt(planned) + "</strong> per hari sedikit di atas jatah amannya (" + fmt(c.allowance) + "). Kalau diteruskan, uang bebasmu habis " + when + ", sebelum gajian tiba. Bukan vonis — turunkan sedikit saja, atau nyalakan jurus hemat di bawah.";
+          }
+        }
+
+        /* ---------------- effective allowance ---------------- */
+        function updateEff() {
+          var c = lastC;
+          var sv = activeSavings();
+          if (!c || !c.ok || c.days === 0 || c.status === "defisit" || c.allowance === null) {
+            effBase.textContent = "—";
+            effNew.textContent = "—";
+            if (c && c.ok && c.status === "defisit") {
+              effNote.className = "eff-note show";
+              effNote.textContent = "Jatah harian belum bisa dihitung karena uang bebasmu minus. Jurus hemat tetap berguna — tapi yang paling membantu sekarang adalah menunda atau menekan pengeluaran wajib.";
+            } else if (c && c.ok && c.days === 0) {
+              effNote.className = "eff-note show";
+              effNote.textContent = "Gajian hari ini — jatah harian tidak perlu dihitung. Jurus hematnya bisa disimpan buat bulan depan.";
+            } else {
+              effNote.className = "eff-note";
+              effNote.textContent = "";
+            }
+            return;
+          }
+          effBase.textContent = fmt(c.allowance);
+          effNew.textContent = fmt(c.allowance + sv.total);
+          if (sv.count > 0) {
+            effNote.className = "eff-note show";
+            effNote.innerHTML = sv.count + " jurus aktif menambah <strong>" + fmt(sv.total) + "</strong> per hari ke jatahmu. Lumayan — itu hasil pilihanmu sendiri.";
+          } else {
+            effNote.className = "eff-note show";
+            effNote.textContent = "Belum ada jurus yang menyala. Nyalakan satu saja dulu, lihat bedanya.";
+          }
+        }
+
+        /* ---------------- refresh ---------------- */
+        function updateTotals() {
+          var ex = readExpenses();
+          totWajibEl.textContent = fmt(ex.wajib);
+          totTundaEl.textContent = fmt(ex.tunda);
+          renderExpEmpty();
+        }
+        function refresh(animate) {
+          updateTotals();
+          lastC = compute();
+          renderResult(lastC, animate);
+          updateSim();
+          updateEff();
+        }
+
+        document.addEventListener("input", function (e) {
+          if (e.target.classList && e.target.classList.contains("uang")) formatUangInput(e.target);
+          refresh(false);
+        });
+        document.addEventListener("change", function (e) {
+          if (e.target === dateEl || (e.target.classList && e.target.classList.contains("exp-postpone"))) refresh(false);
+        });
+
+        document.getElementById("btn-hitung").addEventListener("click", function () {
+          attempted = true;
+          refresh(true);
+          if (lastC && lastC.ok) {
+            zoneEl.scrollIntoView({ behavior: "smooth", block: "start" });
+          } else {
+            document.querySelector(".card").scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+
+        document.getElementById("btn-contoh").addEventListener("click", function () {
+          sisaEl.value = nf.format(1500000);
+          dateEl.value = toVal(addDays(todayStart(), 12));
+          expList.innerHTML = "";
+          addExpense("Internet/HP", 100000, false);
+          addExpense("Transport", 200000, false);
+          addExpense("Listrik", 150000, false);
+          attempted = true;
+          refresh(true);
+          zoneEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        document.getElementById("btn-reset").addEventListener("click", function () {
+          sisaEl.value = "";
+          dateEl.value = "";
+          jajanEl.value = "";
+          expList.innerHTML = "";
+          var boxes = trickList.querySelectorAll(".trick");
+          boxes.forEach(function (b, i) {
+            b.querySelector(".trick-on").checked = false;
+            b.classList.remove("on");
+            b.querySelector(".trick-amt-in").value = nf.format(TRICKS[i].def);
+          });
+          attempted = false;
+          hideErrors();
+          refresh(false);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        refresh(false);
+      })();
+    </script>
+  </body>
+</html>
